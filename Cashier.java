@@ -1,6 +1,6 @@
 public class Cashier {
     private CoffeeQueue coffeeQueue = CoffeeQueue.getInstance();
-    private CustomerQueue customerQueue = CustomerQueue.getInstance();
+    private OrderQueue customerQueue = OrderQueue.getInstance();
 
     public void work(Order order) {
         customerQueue.add(order);

@@ -4,12 +4,11 @@ public class Manager {
     public static final int MAX_WAITING_TIME = 5;
 
     private CoffeeQueue coffeeQueue = CoffeeQueue.getInstance();
-    private CustomerQueue customerQueue = CustomerQueue.getInstance();
+    private OrderQueue customerQueue = OrderQueue.getInstance();
+    private int waitingTime;
     Barista barista = new Barista();
 
     public void work() throws InterruptedException {
-        int waitingTime = 0;
-
         while (true) {
             if (customerQueue.isEnd()) {
                 Thread.sleep(1000);
@@ -23,7 +22,7 @@ public class Manager {
             if (waitingTime > 0) {
                 waitingTime = 0;
             }
-            if (barista.isBusy()) {
+            if (barista.isBusy()) { // 바리스타가 2개의 커피를 제조중이라면, sleep
                 Thread.sleep(1000);
                 continue;
             }
@@ -37,8 +36,6 @@ public class Manager {
     }
 
     public CompletableFuture orderBaristaMakeCoffee(Barista barista, Coffee coffee) {
-//        Executor executor = Executors.newFixedThreadPool(10);
-
         return CompletableFuture.supplyAsync(() -> {
             return barista.makeCoffee(coffee);
         }
