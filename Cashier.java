@@ -5,5 +5,6 @@ public class Cashier {
     public void work(Order order) {
         customerQueue.add(order);
         coffeeQueue.add(order);
+        coffeeQueue.printQueue();
     }
 }

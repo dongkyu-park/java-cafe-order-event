@@ -19,10 +19,7 @@ public class Barista {
         System.out.println(coffee.getCoffeeName() + " 시작");
         workQueue.add(coffee);
 
-        String[] arr = menu.getCoffeeInfo(coffee.getCoffeeType()).split(":");
-        String customerId = coffee.getOwner();
-        String coffeeName = arr[0];
-        int timeTakes = Integer.parseInt(arr[1]);
+        int timeTakes = Integer.parseInt(menu.getCoffeeInfo(coffee.getCoffeeType()).split(":")[1]);
 
         try {
             Thread.sleep(timeTakes);
@@ -30,7 +27,6 @@ public class Barista {
             e.printStackTrace();
         }
 
-        workQueue.poll();
-        return coffee;
+        return workQueue.poll();
     }
 }

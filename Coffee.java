@@ -1,16 +1,22 @@
 public class Coffee {
-    private String owner;
+    private String orderId;
+    private String customerId;
     private int coffeeType;
     private String coffeeName;
 
-    public Coffee(String owner, int coffeeType, String coffeeName) {
-        this.owner = owner;
+    public Coffee(String orderId, String customerId, int coffeeType, String coffeeName) {
+        this.orderId = orderId;
+        this.customerId = customerId;
         this.coffeeType = coffeeType;
         this.coffeeName = coffeeName;
     }
 
+    public String getOrderId() {
+        return orderId;
+    }
+
     public String getOwner() {
-        return owner;
+        return customerId;
     }
 
     public int getCoffeeType() {

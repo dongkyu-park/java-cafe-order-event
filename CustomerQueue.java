@@ -14,20 +14,22 @@ public class CustomerQueue {
     }
 
     public void add(Order order) {
-        customerQueue.put(order.getCustomerId(), order);
+        customerQueue.put(order.getOrderId(), order);
     }
 
     public boolean isEnd() {
         return customerQueue.isEmpty();
     }
 
-    public void finishOneCoffee(String CustomerId) {
-        Order customersOrder = customerQueue.get(CustomerId);
+    public boolean finishOneCoffee(Coffee coffee) {
+        Order customersOrder = customerQueue.get(coffee.getOrderId());
         customersOrder.finishCoffee();
 
         if (orderIsFinish(customersOrder)) {
-            customerQueue.remove(CustomerId);
+            customerQueue.remove(coffee.getOrderId());
+            return true;
         }
+        return false;
     }
 
     public boolean orderIsFinish(Order customersOrder) {

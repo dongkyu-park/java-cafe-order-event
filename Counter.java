@@ -12,29 +12,30 @@ public class Counter {
         Cashier cashier = new Cashier();
         Manager manager = new Manager();
         Customer customerA = new Customer("A");
-        Order orderA = new Order("A");
 
-        String input = sc.nextLine();
-        managerWorkAsync(manager);
+        managerWorkAsync(manager, sc);
 
-        while (!input.equals("")) {
-            String[] arr = input.split(":");
-            int coffee = Integer.parseInt(arr[0]);
-            int cup = Integer.parseInt(arr[1]);
-
-            for (int i = 0; i < cup; i++) {
-                orderA.addCoffeeOrder(coffee);
-            }
-
-            cashier.work(orderA);
-            System.out.print("> ");
-            input = sc.nextLine();
+        while (true) {
+            Order order = orderMaker(sc.nextLine());
+            cashier.work(order);
         }
     }
 
-    public static CompletableFuture managerWorkAsync(Manager manager) {
-//        Executor executor = Executors.newFixedThreadPool(10);
+    public static Order orderMaker(String input) {
+        Order orderA = new Order("A");
 
+        String[] arr = input.split(":");
+        int coffee = Integer.parseInt(arr[0]);
+        int cup = Integer.parseInt(arr[1]);
+
+        for (int i = 0; i < cup; i++) {
+            orderA.addCoffeeOrder(coffee);
+        }
+
+        return orderA;
+    }
+
+    public static CompletableFuture managerWorkAsync(Manager manager, Scanner sc) {
         return CompletableFuture.runAsync(() -> {
                     try {
                         manager.work();
@@ -42,6 +43,9 @@ public class Counter {
                         e.printStackTrace();
                     }
                 }
-        ).thenAccept(p -> System.out.println("모든 메뉴가 완성되었습니다."));
+        ).thenAccept(p -> {
+            System.out.println("모든 메뉴가 완성되었습니다.");
+            System.exit(0);
+        });
     }
 }

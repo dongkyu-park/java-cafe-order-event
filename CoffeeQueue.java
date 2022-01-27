@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,7 +16,7 @@ public class CoffeeQueue {
     }
 
     public Coffee nextCoffee() {
-        return coffeeQueue.poll();
+        return this.coffeeQueue.poll();
     }
 
     public boolean noOrder() {
@@ -25,7 +26,19 @@ public class CoffeeQueue {
     public void add(Order order) {
         for (int i = 0; i < order.getOrderList().size(); i++) {
             int coffeeType = order.getOrderList().get(i);
-            coffeeQueue.add(new Coffee(order.getCustomerId(), coffeeType, menu.getCoffeeInfo(coffeeType).split(":")[0]));
+            coffeeQueue.add(new Coffee(order.getOrderId(), order.getCustomerId(), coffeeType, menu.getCoffeeInfo(coffeeType).split(":")[0]));
         }
+    }
+
+    public void printQueue() {
+        Iterator<Coffee> iterator = coffeeQueue.iterator();
+        StringBuilder sb = new StringBuilder("/");
+
+        while(iterator.hasNext()) {
+            sb.append(iterator.next().getCoffeeType() + ",");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(","));
+        sb.append("/");
+        System.out.println(sb.toString());
     }
 }
