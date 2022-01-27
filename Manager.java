@@ -31,7 +31,7 @@ public class Manager {
                 orderBaristaMakeCoffee(barista, coffee);
             }
 
-            Thread.sleep(1000); // 1초마다 반복
+            Thread.sleep(1000); // 1초마다 반복체크
         }
     }
 
@@ -41,7 +41,7 @@ public class Manager {
         }
         ).thenAccept((finishCoffee) -> {
             System.out.println(finishCoffee.getCoffeeName() + " 완성");
-            if (customerQueue.finishOneCoffee(finishCoffee)) {
+            if (customerQueue.finishCupOfCoffee(finishCoffee)) {
                 System.out.println("===== " + coffee.getOwner() + ", 주문 완성");
             }
         });

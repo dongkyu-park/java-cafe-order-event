@@ -21,7 +21,7 @@ public class OrderQueue {
         return orderQueue.isEmpty();
     }
 
-    public boolean finishOneCoffee(Coffee coffee) {
+    public boolean finishCupOfCoffee(Coffee coffee) {
         Order customersOrder = orderQueue.get(coffee.getOrderId());
         customersOrder.finishCoffee();
 
